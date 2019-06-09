@@ -35,7 +35,8 @@ public class StartActivity extends AppCompatActivity {
     private ListView listView;
     private ListAdapter listAdapter;
     private String currentExercise;
-    ToneGenerator toneGen1;
+    private ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+
 
 
     @Override
@@ -151,10 +152,12 @@ public class StartActivity extends AppCompatActivity {
 
         if(seconds == 0 || seconds == 30){
             phase = "work";
-            toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+            //ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+            toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP,150);
         }else if (seconds == 10 || seconds == 40){
             phase = "rest";
-            toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+            //ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+            toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP,150);
         }else if (seconds == 1 || seconds == 31){
             currentExercise=exercises.get(0).toString();
             exercises.add(exercises.get(0));
@@ -170,8 +173,9 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     public void onPause(){
-        toneGen1 = null;
         super.onPause();
+        toneGen1 = null;
+
     }
 
     @Override
