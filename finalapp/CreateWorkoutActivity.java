@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -71,6 +70,16 @@ public class CreateWorkoutActivity extends AppCompatActivity implements AdapterV
                     i=0;
                     finishAdding();
                 }
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View v,
+                                           int index, long arg3) {
+
+                Toast.makeText(CreateWorkoutActivity.this,"Long clicked", Toast.LENGTH_LONG).show();
+                return false;
             }
         });
 
