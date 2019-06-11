@@ -58,5 +58,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    public boolean deleteTitle(String name)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(ExerciseEntry.TABLE_NAME, ExerciseEntry.COLUMN_NAME + "=" + name, null) > 0;
+    }
+
+
+
+
 
 }

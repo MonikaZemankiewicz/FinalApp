@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,43 +23,57 @@ import java.util.ArrayList;
 
 public class CreateWorkoutActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private EditText mEditTextName;
-    private TextView mTextViewAmount;
-    private String mGroup;
-    ArrayList<String> chosenExercises = new ArrayList<>();
+    private EditText mEditTextFilter;
+    private ArrayList<String> chosenExercises = new ArrayList<>();
     int i=0;
-    ArrayList<String> theList = new ArrayList<>();
-    Spinner spinnergroup;
-    String[] groupname={"All", "Legs and Butt", "Stomach", "Arms", "Back", "Chest", "Butt", "Full Body Workout"};
+    private ArrayList<String> theList = new ArrayList<>();
+    private Cursor data;
+    private ListView listView;
+    private ArrayAdapter listAdapter;
+    private String[] groupname={"All", "Legs and Butt", "Stomach", "Arms", "Back", "Chest", "Butt", "Full Body Workout"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_workout);
 
-        spinnergroup=(Spinner)findViewById(R.id.spinnergroup);
-        spinnergroup.setOnItemSelectedListener(this);
-        ArrayAdapter adapterspinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, groupname);
-        adapterspinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnergroup.setAdapter(adapterspinner);
-        String group = spinnergroup.getSelectedItem().toString();
-
 
         DBHelper dbHelper = new DBHelper(this);
-        ListView listView = (ListView)findViewById(R.id.listview);
-        Cursor data = dbHelper.getListContents();
+        data = dbHelper.getListContents();
+        listView = (ListView)findViewById(R.id.listview);
+        listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,theList);
+        listView.setAdapter(listAdapter);
+
+        mEditTextFilter = findViewById(R.id.editText_filter);
+
+        mEditTextFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                (CreateWorkoutActivity.this).listAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
         if(data.getCount()==0){
             Toast.makeText(this, "The exercise list is empty", Toast.LENGTH_LONG).show();
         }else{
             while(data.moveToNext()){
-                theList.add(data.getString(1));
+                theList.add(data.getString(1) + " | " + data.getString(2));
 
             }
-            ListAdapter listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,theList);
+            listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,theList);
             listView.setAdapter(listAdapter);
         }
-
-        Button buttonFilter = findViewById(R.id.button_add);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -103,5 +121,7 @@ public class CreateWorkoutActivity extends AppCompatActivity implements AdapterV
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
     }
+
+
 
 }

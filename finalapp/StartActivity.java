@@ -180,8 +180,8 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        this.finish();
         super.onBackPressed();
+        this.finish();
 
     }
 }
