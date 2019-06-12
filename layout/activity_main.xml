@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="18dp"
+    android:background="#B0BBC6"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="372dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="TABATA MANAGER"
+        android:textSize="36sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/button"
@@ -19,7 +29,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="120dp"
         android:layout_marginLeft="120dp"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="120dp"
         android:layout_marginRight="120dp"
         android:text="add exercise" />
@@ -35,7 +45,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="120dp"
         android:layout_marginLeft="120dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="120dp"
         android:layout_marginRight="120dp"
         android:text="create workout" />
@@ -51,10 +61,12 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="120dp"
         android:layout_marginLeft="120dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="120dp"
         android:layout_marginRight="120dp"
         android:text="READY TABATAS" />
 
 
-</RelativeLayout>
+
+
+</LinearLayout>
